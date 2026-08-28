@@ -1,0 +1,18 @@
+{
+  "name": "wando-diesel",
+  "version": "1.0.0",
+  "description": "Website e Sistema de Faturamento da Wando Diesel",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx -y http-server -p 3000 -c-1",
+    "start": "npx -y http-server -p 3000 -c-1"
+  },
+  "keywords": [
+    "diesel",
+    "parts",
+    "invoice"
+  ],
+  "author": "Antigravity",
+  "license": "ISC",
+  "dependencies": {}
+}

@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WANDO DIESEL | Autopeças e Serviços Pesados</title>
+  <meta name="description" content="Site e gerador de notas de serviços/peças da Wando Diesel. Especialista em autopeças de linha diesel, turbinas, sistemas de injeção e manutenção mecânica de pesados.">
+  <link rel="stylesheet" href="style.css?v=2">
+</head>
+<body>
+
+  <!-- Sidebar Nav -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-logo">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <!-- Mechanic & heavy tools inspired icon -->
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        WANDO DIESEL
+        <span>PEÇAS & SERVIÇOS</span>
+      </div>
+    </div>
+
+    <ul class="nav-links">
+      <li class="nav-item active" data-target="view-catalog">
+        <a href="#catalog">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <rect x="3" y="3" width="7" height="9" rx="1"/>
+            <rect x="14" y="3" width="7" height="5" rx="1"/>
+            <rect x="14" y="12" width="7" height="9" rx="1"/>
+            <rect x="3" y="16" width="7" height="5" rx="1"/>
+          </svg>
+          Início e Peças
+        </a>
+      </li>
+      <li class="nav-item" data-target="view-invoice-builder">
+        <a href="#invoice-builder">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="12" y1="18" x2="12" y2="12"/>
+            <line x1="9" y1="15" x2="15" y2="15"/>
+          </svg>
+          Nova Nota / Orçamento
+        </a>
+      </li>
+      <li class="nav-item" data-target="view-history">
+        <a href="#history">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+          Histórico de Notas
+        </a>
+      </li>
+
+      <li class="nav-item" data-target="view-contact">
+        <a href="#contact">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+          Fale Conosco
+        </a>
+      </li>
+
+      <li class="nav-item" data-target="view-settings">
+        <a href="#settings">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+          Ajustes
+        </a>
+      </li>
+    </ul>
+
+    <div class="sidebar-footer">
+      <p>&copy; 2026 WANDO DIESEL</p>
+      <p style="font-size:0.7rem; margin-top:5px;">Sistemas de Alta Performance</p>
+    </div>
+  </aside>
+
+  <!-- Main Content Viewport -->
+  <main class="main-content">
+    
+    <!-- Topbar -->
+    <header class="top-bar">
+      <button class="btn-burger" id="btn-burger" aria-label="Abrir Menu">
+        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+
+      <div class="page-title">
+        <h1 id="view-title">Catálogo de Autopeças</h1>
+        <p id="view-subtitle">Consulte nosso estoque de peças pesadas ou inicie uma ordem de serviço.</p>
+      </div>
+
+      <div class="status-badge-container">
+        <span class="badge badge-success" id="shop-status">Mecânica Online</span>
+      </div>
+    </header>
+
+    <!-- SECTION 1: CATALOG / DASHBOARD -->
+    <section id="view-catalog" class="view-section active-view">
+      
+      <!-- Stats Dashboard -->
+      <div class="dashboard-grid">
+        <div class="stat-card">
+          <div class="stat-info">
+            <h3>Itens no Catálogo</h3>
+            <div class="stat-value" id="stat-total-items">10</div>
+          </div>
+          <div class="stat-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-info">
+            <h3>Orçamento em Edição</h3>
+            <div class="stat-value" id="stat-current-invoice">R$ 0,00</div>
+          </div>
+          <div class="stat-icon">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-info">
+            <h3>Notas Faturadas</h3>
+            <div class="stat-value" id="stat-billed-count">0</div>
+          </div>
+          <div class="stat-icon green">
+            <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Catalog Controls -->
+      <div class="glass-panel">
+        <div class="catalog-controls">
+          <div class="search-box">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="catalog-search" placeholder="Pesquisar por peça, código original ou aplicação...">
+          </div>
+          <div class="category-filter" id="category-filter-bar">
+            <!-- Filter buttons injected dynamically by JS -->
+          </div>
+        </div>
+
+        <!-- Catalog Product Grid -->
+        <div class="catalog-grid" id="catalog-grid">
+          <!-- Product cards injected by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: INVOICE BUILDER (Nova Ordem de Serviço) -->
+    <section id="view-invoice-builder" class="view-section">
+      <div class="invoice-builder-layout">
+        
+        <!-- Form and Tables Panel -->
+        <div class="left-panel">
+          
+          <!-- Client & Vehicle Details Card -->
+          <div class="glass-panel">
+            <div class="glass-panel-header">
+              <h2>
+                <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                Dados da Ordem de Serviço / Cliente
+              </h2>
+            </div>
+            
+            <form id="invoice-client-form">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="client-name">Nome do Cliente *</label>
+                  <input type="text" id="client-name" required placeholder="Ex: Lucas Silva Santos">
+                </div>
+                <div class="form-group">
+                  <label for="client-doc">CPF ou CNPJ</label>
+                  <input type="text" id="client-doc" placeholder="Ex: 000.000.000-00">
+                </div>
+                <div class="form-group">
+                  <label for="client-phone">Telefone de Contato</label>
+                  <input type="tel" id="client-phone" placeholder="Ex: (11) 98765-4321">
+                </div>
+              </div>
+
+              <div class="form-grid" style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1.25rem;">
+                <div class="form-group">
+                  <label for="vehicle-model">Veículo / Modelo *</label>
+                  <input type="text" id="vehicle-model" required placeholder="Ex: Toyota Hilux 3.0 D-4D">
+                </div>
+                <div class="form-group">
+                  <label for="vehicle-plate">Placa</label>
+                  <input type="text" id="vehicle-plate" placeholder="Ex: ABC-1234">
+                </div>
+                <div class="form-group">
+                  <label for="vehicle-km">Quilometragem (KM)</label>
+                  <input type="number" id="vehicle-km" placeholder="Ex: 145000">
+                </div>
+                <div class="form-group">
+                  <label for="vehicle-year">Ano</label>
+                  <input type="text" id="vehicle-year" placeholder="Ex: 2013/2014">
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <!-- Invoice Parts List -->
+          <div class="glass-panel">
+            <div class="glass-panel-header">
+              <h2>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                1. Peças da Nota
+              </h2>
+              <button class="btn btn-secondary btn-sm" id="btn-add-manual-part">
+                <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                Peça Manual
+              </button>
+            </div>
+            
+            <div class="table-container">
+              <table class="item-table" id="invoice-parts-table">
+                <thead>
+                  <tr>
+                    <th>Código/SKU</th>
+                    <th>Descrição da Peça</th>
+                    <th style="width: 100px; text-align: center;">Quantidade</th>
+                    <th style="text-align: right;">Unitário</th>
+                    <th style="text-align: right;">Total</th>
+                    <th style="width: 50px; text-align: center;">Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="invoice-parts-body">
+                  <tr>
+                    <td colspan="6" style="text-align: center; color: var(--text-muted); padding: 2rem;">
+                      Nenhuma peça adicionada. Adicione peças do catálogo ou use o botão 'Peça Manual'.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Invoice Services List -->
+          <div class="glass-panel">
+            <div class="glass-panel-header">
+              <h2>
+                <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                2. Serviços & Mão de Obra
+              </h2>
+              <button class="btn btn-secondary btn-sm" id="btn-add-service">
+                <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                Adicionar Serviço
+              </button>
+            </div>
+
+            <div class="table-container">
+              <table class="item-table" id="invoice-services-table">
+                <thead>
+                  <tr>
+                    <th>Descrição do Serviço</th>
+                    <th style="width: 120px; text-align: center;">Horas / Qtd</th>
+                    <th style="text-align: right;">Preço/Hora (R$)</th>
+                    <th style="text-align: right;">Total</th>
+                    <th style="width: 50px; text-align: center;">Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="invoice-services-body">
+                  <tr>
+                    <td colspan="5" style="text-align: center; color: var(--text-muted); padding: 2rem;">
+                      Nenhum serviço de mão de obra cadastrado para esta ordem.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar Summary Area -->
+        <div class="right-panel">
+          <div class="glass-panel invoice-summary-box">
+            <div class="glass-panel-header" style="margin-bottom: 0.5rem; padding-bottom: 0.5rem;">
+              <h2>Resumo dos Valores</h2>
+            </div>
+            
+            <div class="summary-row">
+              <span>Total em Peças:</span>
+              <span id="summary-total-parts">R$ 0,00</span>
+            </div>
+            
+            <div class="summary-row">
+              <span>Total em Serviços:</span>
+              <span id="summary-total-services">R$ 0,00</span>
+            </div>
+
+            <div class="summary-row" id="discount-display-row" style="display:none;">
+              <span>Desconto Aplicado:</span>
+              <span id="summary-discount-value" style="color:#10b981; font-weight:600;">- R$ 0,00</span>
+            </div>
+
+            <div class="summary-row" style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 0.75rem; margin-top: 0.5rem;">
+              <div class="form-group" style="width: 100%;">
+                <label for="invoice-discount">Desconto Global (%)</label>
+                <input type="number" id="invoice-discount" value="0" min="0" max="100" step="0.1">
+              </div>
+            </div>
+
+            <div class="summary-row">
+              <div class="form-group" style="width: 100%;">
+                <label for="invoice-tax">Acréscimo/Imposto (R$)</label>
+                <input type="number" id="invoice-tax" value="0" min="0" step="0.01">
+              </div>
+            </div>
+
+            <div class="summary-row total">
+              <span>Valor Total:</span>
+              <span id="summary-total-value">R$ 0,00</span>
+            </div>
+
+            <div class="form-group" style="margin-top: 1rem;">
+              <label for="invoice-notes">Observações da Ordem de Serviço</label>
+              <textarea id="invoice-notes" placeholder="Ex: Garantia de 3 meses para serviços de mão de obra. Veículo entregue testado e aprovado."></textarea>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.5rem;">
+              <button class="btn btn-primary btn-block" id="btn-save-invoice">
+                <svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                Salvar & Emitir Nota
+              </button>
+              <button class="btn btn-secondary btn-block" id="btn-clear-invoice">
+                <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+                Limpar Rascunho
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 3: INVOICES HISTORY -->
+    <section id="view-history" class="view-section">
+      <!-- Financial dashboard widgets -->
+      <div class="dashboard-grid">
+        <div class="stat-card">
+          <div class="stat-info">
+            <h3>Faturamento Total</h3>
+            <div class="stat-value" id="history-total-revenue">R$ 0,00</div>
+          </div>
+          <div class="stat-icon green">
+            <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-info">
+            <h3>Faturamento em Peças</h3>
+            <div class="stat-value" id="history-parts-revenue">R$ 0,00</div>
+          </div>
+          <div class="stat-icon">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-info">
+            <h3>Faturamento em Serviços</h3>
+            <div class="stat-value" id="history-services-revenue">R$ 0,00</div>
+          </div>
+          <div class="stat-icon">
+            <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Invoices list -->
+      <div class="glass-panel">
+        <div class="history-table-header">
+          <h2>Lista de Notas de Serviço Emitidas</h2>
+          <button class="btn btn-secondary btn-sm" id="btn-clear-history">
+            <svg viewBox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            Limpar Todo Histórico
+          </button>
+        </div>
+
+        <div class="table-container">
+          <table class="item-table" id="history-table">
+            <thead>
+              <tr>
+                <th style="width: 100px;">Nº Nota</th>
+                <th>Data Emissão</th>
+                <th>Cliente</th>
+                <th>Veículo</th>
+                <th style="text-align: right;">Valor Total</th>
+                <th style="width: 180px; text-align: center;">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="history-table-body">
+              <tr>
+                <td colspan="6" style="text-align: center; color: var(--text-muted); padding: 2.5rem;">
+                  Nenhuma nota de serviço emitida até o momento.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: CONTACT -->
+    <section id="view-contact" class="view-section">
+      <div class="contact-container">
+
+        <!-- Contact Information Block -->
+        <div class="glass-panel">
+          <div class="glass-panel-header">
+            <h2>Fale com a Wando Diesel</h2>
+          </div>
+          <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+            Estamos prontos para atender seu caminhão, utilitário ou maquinário pesado. Fale com nossos especialistas em peças e diagnósticos diesel.
+          </p>
+
+          <div class="contact-info-list">
+            <div class="contact-info-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <div>
+                <h4>Endereço Oficina &amp; Loja</h4>
+                <p>Rodovia BR-116, Km 432 - Setor Industrial</p>
+                <p>Curitiba - PR, CEP: 80000-000</p>
+              </div>
+            </div>
+
+            <div class="contact-info-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <div>
+                <h4>Contatos Rápidos</h4>
+                <p>Telefone Fixo: (41) 3222-9090</p>
+                <p>WhatsApp Comercial: (41) 99999-5050</p>
+              </div>
+            </div>
+
+            <div class="contact-info-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              <div>
+                <h4>E-mail Corporativo</h4>
+                <p>vendas@wandodiesel.com.br</p>
+                <p>oficina@wandodiesel.com.br</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 5: SETTINGS (Gerenciador de Peças) -->
+    <section id="view-settings" class="view-section">
+      <div class="settings-layout">
+
+        <!-- Painel Esquerdo: Formulário de Cadastro -->
+        <div class="settings-left">
+          <div class="glass-panel">
+            <div class="glass-panel-header">
+              <h2 id="settings-form-title">
+                <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Adicionar Nova Peça
+              </h2>
+            </div>
+            <form id="settings-part-form">
+              <input type="hidden" id="settings-edit-id">
+              <div class="form-group" style="margin-bottom:1rem;">
+                <label for="settings-name">Nome da Peça *</label>
+                <input type="text" id="settings-name" required placeholder="Ex: Filtro de Óleo Cummins ISB">
+              </div>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="settings-sku">SKU / Código *</label>
+                  <input type="text" id="settings-sku" required placeholder="Ex: FO-CUM-001">
+                </div>
+                <div class="form-group">
+                  <label for="settings-category">Categoria *</label>
+                  <select id="settings-category" required></select>
+                </div>
+              </div>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="settings-price">Preço (R$) *</label>
+                  <input type="number" id="settings-price" step="0.01" min="0" required placeholder="0.00">
+                </div>
+                <div class="form-group">
+                  <label for="settings-stock">Estoque (un)</label>
+                  <input type="number" id="settings-stock" value="10" min="0">
+                </div>
+              </div>
+              <div class="form-group" style="margin-bottom:1rem;">
+                <label for="settings-desc">Descrição Curta</label>
+                <input type="text" id="settings-desc" placeholder="Ex: Filtro original para motores Cummins ISB 5.9L">
+              </div>
+              <div style="display:flex; gap:0.75rem; margin-top:1.5rem;">
+                <button type="submit" class="btn btn-primary" style="flex:1;" id="settings-submit-btn">
+                  <svg viewBox="0 0 24 24" style="width:16px;height:16px;"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                  Salvar Peça
+                </button>
+                <button type="button" class="btn btn-secondary" id="settings-cancel-edit" style="display:none;">
+                  Cancelar
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Card de estatísticas rápidas do estoque -->
+          <div class="glass-panel" style="margin-top:1.5rem;">
+            <div class="glass-panel-header">
+              <h2>
+                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+                Resumo do Catálogo
+              </h2>
+            </div>
+            <div class="summary-row">
+              <span>Total de Peças:</span>
+              <span id="settings-stat-total" style="font-weight:700; color:var(--primary);">0</span>
+            </div>
+            <div class="summary-row" style="margin-top:0.5rem;">
+              <span>Itens com Estoque Baixo (&le;3):</span>
+              <span id="settings-stat-low" style="font-weight:700; color:var(--warning);">0</span>
+            </div>
+            <div class="summary-row" style="margin-top:0.5rem;">
+              <span>Sem Estoque:</span>
+              <span id="settings-stat-zero" style="font-weight:700; color:var(--danger);">0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Painel Direito: Tabela de Peças -->
+        <div class="settings-right">
+          <div class="glass-panel">
+            <div class="history-table-header">
+              <h2>Catálogo de Peças Cadastradas</h2>
+              <div style="display:flex; gap:0.5rem;">
+                <div class="search-box" style="flex:1;">
+                  <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                  <input type="text" id="settings-search" placeholder="Buscar peça..." style="width:200px;">
+                </div>
+                <button class="btn btn-danger btn-sm" id="btn-clear-catalog" title="Limpar todo o catálogo">
+                  <svg viewBox="0 0 24 24" style="width:14px;height:14px;"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg>
+                  Limpar Tudo
+                </button>
+              </div>
+            </div>
+            <div class="table-container">
+              <table class="item-table">
+                <thead>
+                  <tr>
+                    <th style="width:110px;">SKU</th>
+                    <th>Nome da Peça</th>
+                    <th style="width:130px;">Categoria</th>
+                    <th style="text-align:right; width:100px;">Preço</th>
+                    <th style="text-align:center; width:80px;">Estoque</th>
+                    <th style="text-align:center; width:100px;">Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="settings-parts-body">
+                  <tr>
+                    <td colspan="6" style="text-align:center; color:var(--text-muted); padding:2rem;">
+                      Nenhuma peça cadastrada. Adicione peças usando o formulário ao lado.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODALS CONTAINER -->
+  
+  <!-- 1. Product Detail Modal -->
+  <div class="modal-overlay" id="product-modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modal-product-title">Nome do Produto</h3>
+        <button class="modal-close" id="modal-product-close" aria-label="Fechar">
+          <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="product-detail-layout">
+          <div class="product-detail-image">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+          </div>
+          <div>
+            <h4 style="font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.25rem;">Descrição Curta</h4>
+            <p id="modal-product-desc" style="font-size: 0.95rem; line-height: 1.6; color: var(--text-main);"></p>
+          </div>
+          <div>
+            <h4 style="font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem;">Ficha Técnica</h4>
+            <div class="product-detail-specs" id="modal-product-specs">
+              <!-- Specs list injected dynamically -->
+            </div>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid rgba(255,255,255,0.05); padding-top:1.25rem; margin-top:0.5rem;">
+            <div>
+              <span style="font-size:0.8rem; color:var(--text-muted); display:block;">Preço Unitário:</span>
+              <span id="modal-product-price" style="font-size:1.6rem; font-weight:700; color:var(--primary); font-family:'Rajdhani', sans-serif;">R$ 0,00</span>
+            </div>
+            <div id="modal-product-stock-badge" class="badge">Em Estoque</div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="modal-product-cancel">Fechar</button>
+        <button class="btn btn-primary" id="modal-product-add-cart">Adicionar à Ordem de Serviço</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Manual Part Modal -->
+  <div class="modal-overlay" id="manual-part-modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Adicionar Peça Manualmente</h3>
+        <button class="modal-close" id="modal-manual-close" aria-label="Fechar">
+          <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <form id="manual-part-form">
+        <div class="modal-body">
+          <div class="form-group" style="margin-bottom:1rem;">
+            <label for="manual-part-name">Descrição / Nome da Peça *</label>
+            <input type="text" id="manual-part-name" required placeholder="Ex: Correia do Alternador Cummins">
+          </div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="manual-part-sku">SKU / Código</label>
+              <input type="text" id="manual-part-sku" placeholder="Ex: COD-COR-12">
+            </div>
+            <div class="form-group">
+              <label for="manual-part-qty">Quantidade *</label>
+              <input type="number" id="manual-part-qty" value="1" min="1" required>
+            </div>
+          </div>
+          <div class="form-group" style="margin-top:1rem;">
+            <label for="manual-part-price">Preço Unitário (R$) *</label>
+            <input type="number" id="manual-part-price" step="0.01" min="0" required placeholder="Ex: 150.00">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="modal-manual-cancel">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Adicionar Peça</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 3. Service Manual Modal -->
+  <div class="modal-overlay" id="service-modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Cadastrar Serviço / Mão de Obra</h3>
+        <button class="modal-close" id="modal-service-close" aria-label="Fechar">
+          <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <form id="service-form">
+        <div class="modal-body">
+          <div class="form-group" style="margin-bottom:1rem;">
+            <label for="service-desc">Descrição do Serviço Executado *</label>
+            <input type="text" id="service-desc" required placeholder="Ex: Instalação e regulagem da turbina nova">
+          </div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="service-hours">Horas de Trabalho *</label>
+              <input type="number" id="service-hours" value="1" min="0.5" step="0.5" required>
+            </div>
+            <div class="form-group">
+              <label for="service-rate">Valor da Hora (R$) *</label>
+              <input type="number" id="service-rate" value="120.00" min="0" step="0.01" required>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="modal-service-cancel">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Adicionar Serviço</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 4. Invoice Action Modal -->
+  <div class="modal-overlay" id="invoice-action-modal-overlay">
+    <div class="modal-content" style="max-width: 450px;">
+      <div class="modal-header">
+        <h3 id="invoice-action-title">Nota Emitida com Sucesso</h3>
+        <button class="modal-close" id="modal-invoice-action-close" aria-label="Fechar">
+          <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <div class="modal-body" style="text-align: center; padding: 2rem 1.5rem;">
+        <div style="margin-bottom: 1.5rem;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2" style="width: 64px; height: 64px; margin: 0 auto 1rem; display: block; filter: drop-shadow(0 0 10px rgba(0, 200, 83, 0.3));">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <h4 style="font-size: 1.2rem; color: #fff; margin-bottom: 0.5rem;" id="invoice-action-subtitle">Nota WD-XXXXX Faturada!</h4>
+          <p style="color: var(--text-muted); font-size: 0.95rem;">Escolha como deseja prosseguir com o documento:</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+          <button class="btn btn-primary" id="btn-action-pdf" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%;">
+            <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Baixar PDF da Nota
+          </button>
+          <button class="btn btn-secondary" id="btn-action-print" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%;">
+            <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2;"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            Imprimir via Navegador
+          </button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary btn-block" id="btn-invoice-action-close-footer">Concluir</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- TOAST NOTIFICATION STACK -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- PRINT ONLY PREVIEW SECTION -->
+  <div id="print-preview-section">
+    <div class="print-invoice-box">
+      
+      <!-- Head -->
+      <div class="print-header">
+        <div class="print-header-left">
+          <h1>WANDO DIESEL</h1>
+          <p>Autopeças e Serviços Mecânicos Especializados em Diesel</p>
+          <p>Rodovia BR-116, Km 432 - Setor Industrial, Curitiba - PR</p>
+          <p>CNPJ: 12.345.678/0001-99 | Tel: (41) 3222-9090</p>
+        </div>
+        <div class="print-header-right">
+          <h2>NOTA DE SERVIÇOS E PEÇAS</h2>
+          <p><strong>Nº Controle:</strong> <span id="print-invoice-number">WD-10023</span></p>
+          <p><strong>Data de Emissão:</strong> <span id="print-invoice-date">26/07/2026</span></p>
+        </div>
+      </div>
+
+      <!-- Detail Grid -->
+      <div class="print-details-grid">
+        <div class="print-detail-block">
+          <h3>Dados do Cliente</h3>
+          <p><strong>Cliente:</strong> <span id="print-client-name">Lucas Silva</span></p>
+          <p><strong>CPF/CNPJ:</strong> <span id="print-client-doc">000.000.000-00</span></p>
+          <p><strong>Telefone:</strong> <span id="print-client-phone">(11) 98765-4321</span></p>
+        </div>
+        <div class="print-detail-block">
+          <h3>Identificação do Veículo</h3>
+          <p><strong>Veículo/Modelo:</strong> <span id="print-vehicle-model">Hilux 3.0 D-4D</span></p>
+          <p><strong>Placa:</strong> <span id="print-vehicle-plate">ABC-1234</span></p>
+          <p><strong>Quilometragem:</strong> <span id="print-vehicle-km">145.000 KM</span> | <strong>Ano:</strong> <span id="print-vehicle-year">2013</span></p>
+        </div>
+      </div>
+
+      <!-- Parts Table -->
+      <h3 style="font-size: 10pt; text-transform: uppercase; font-weight: bold; margin-bottom: 0.5rem;">1. Relação de Peças e Componentes Aplicados</h3>
+      <table class="print-table">
+        <thead>
+          <tr>
+            <th style="width: 12%;">Código/SKU</th>
+            <th style="text-align: left;">Descrição da Peça</th>
+            <th style="width: 10%; text-align: center;">Qtd</th>
+            <th style="width: 15%; text-align: right;">Unitário (R$)</th>
+            <th style="width: 18%; text-align: right;">Total (R$)</th>
+          </tr>
+        </thead>
+        <tbody id="print-parts-body">
+          <!-- Filled by JS -->
+        </tbody>
+      </table>
+
+      <!-- Services Table -->
+      <h3 style="font-size: 10pt; text-transform: uppercase; font-weight: bold; margin-bottom: 0.5rem; margin-top: 1rem;">2. Relação de Serviços e Mão de Obra Executada</h3>
+      <table class="print-table">
+        <thead>
+          <tr>
+            <th style="text-align: left;">Descrição dos Serviços Executados</th>
+            <th style="width: 12%; text-align: center;">Qtd/Horas</th>
+            <th style="width: 18%; text-align: right;">Preço/Hora (R$)</th>
+            <th style="width: 18%; text-align: right;">Total (R$)</th>
+          </tr>
+        </thead>
+        <tbody id="print-services-body">
+          <!-- Filled by JS -->
+        </tbody>
+      </table>
+
+      <!-- Totals & Notes -->
+      <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 1.5rem; margin-top: 1rem; page-break-inside: avoid;">
+        <div class="print-detail-block">
+          <h3>Termos & Observações</h3>
+          <p id="print-invoice-notes" style="font-size: 8.5pt !important; line-height: 1.3; color:#444;">
+            Garantia de 90 dias para serviços de mão de obra e peças novas, conforme normas do CDC.
+          </p>
+        </div>
+        <div>
+          <table class="print-table" style="margin-bottom: 0;">
+            <tbody>
+              <tr>
+                <td style="text-align: left; font-weight: bold;">Subtotal Peças:</td>
+                <td style="text-align: right;" id="print-total-parts">R$ 0,00</td>
+              </tr>
+              <tr>
+                <td style="text-align: left; font-weight: bold;">Subtotal Serviços:</td>
+                <td style="text-align: right;" id="print-total-services">R$ 0,00</td>
+              </tr>
+              <tr id="print-discount-row">
+                <td style="text-align: left; font-weight: bold; color: #d32f2f;">Desconto (-):</td>
+                <td style="text-align: right; color: #d32f2f;" id="print-discount">R$ 0,00</td>
+              </tr>
+              <tr id="print-tax-row">
+                <td style="text-align: left; font-weight: bold;">Acréscimo (+):</td>
+                <td style="text-align: right;" id="print-tax">R$ 0,00</td>
+              </tr>
+              <tr class="total-row">
+                <td style="text-align: left; font-size: 11pt !important; border-top: 2px solid #000 !important;">TOTAL GERAL:</td>
+                <td style="text-align: right; font-size: 11pt !important; border-top: 2px solid #000 !important;" id="print-total-value">R$ 0,00</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Signatures -->
+      <div class="print-signatures">
+        <div class="signature-line">
+          <p><strong>WANDO DIESEL</strong></p>
+          <p>Mecânico Responsável / Assinatura da Oficina</p>
+        </div>
+        <div class="signature-line">
+          <p><strong id="print-client-signature-name">Lucas Silva</strong></p>
+          <p>Assinatura do Cliente / Proprietário do Veículo</p>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="print-footer">
+        <p>Agradecemos a preferência! Tecnologia e Confiança na Estrada.</p>
+        <p>Wando Diesel - Equipamentos Diesel Common Rail & Injeção Eletrônica.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
