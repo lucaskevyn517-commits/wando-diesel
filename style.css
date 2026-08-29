@@ -1166,7 +1166,7 @@ body::before {
     transform: translateX(-100%);
   }
   
-  .sidebar.active {
+  .sidebar.active, .sidebar.open {
     transform: translateX(0);
   }
   
@@ -1177,6 +1177,37 @@ body::before {
   
   .btn-burger {
     display: block;
+  }
+
+  .top-bar {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .page-title {
+    grid-column: 1 / span 3;
+    order: 2;
+  }
+
+  .btn-burger {
+    grid-column: 1;
+    order: 1;
+  }
+
+  .status-badge-container {
+    grid-column: 3;
+    order: 1;
+  }
+
+  .page-title h1 {
+    font-size: 1.6rem;
+  }
+
+  .page-title p {
+    font-size: 0.8rem;
   }
 }
 
