@@ -1,6 +1,7 @@
 import { DIESEL_DATABASE as DIESEL_DATABASE_DEFAULT, CATEGORIES } from "./database.js";
+import { PartsDB } from "./db.js";
 
-// Banco de dados mutável — carregado do localStorage ou inicializado vazio
+// Banco de dados mutável — sincronizado com SQLite e cache IndexedDB
 let DIESEL_DATABASE = JSON.parse(localStorage.getItem("wd_catalog")) || [...DIESEL_DATABASE_DEFAULT];
 
 function saveCatalog() {
@@ -110,6 +111,8 @@ const manualPartName = document.getElementById("manual-part-name");
 const manualPartSku = document.getElementById("manual-part-sku");
 const manualPartQty = document.getElementById("manual-part-qty");
 const manualPartPrice = document.getElementById("manual-part-price");
+const manualPartCategory = document.getElementById("manual-part-category");
+const manualPartSaveDb = document.getElementById("manual-part-save-db");
 const modalManualCancel = document.getElementById("modal-manual-cancel");
 
 const serviceModalOverlay = document.getElementById("service-modal-overlay");
@@ -146,6 +149,10 @@ const settingsFormTitle = document.getElementById("settings-form-title");
 const settingsStatTotal = document.getElementById("settings-stat-total");
 const settingsStatLow = document.getElementById("settings-stat-low");
 const settingsStatZero = document.getElementById("settings-stat-zero");
+
+// Banco de Dados & Backups
+const btnExportBackup = document.getElementById("btn-export-backup");
+const inputImportBackup = document.getElementById("input-import-backup");
 
 // Toast Container
 const toastContainer = document.getElementById("toast-container");
@@ -514,21 +521,65 @@ function setupInvoiceBuilder() {
   modalServiceClose.addEventListener("click", () => serviceModalOverlay.classList.remove("active"));
   modalServiceCancel.addEventListener("click", () => serviceModalOverlay.classList.remove("active"));
 
-  // Formulário Peça Manual - Submit
-  manualPartForm.addEventListener("submit", (e) => {
+  // Preencher categorias no modal de Peça Manual
+  if (manualPartCategory) {
+    manualPartCategory.innerHTML = "";
+    Object.entries(CATEGORIES).forEach(([key, label]) => {
+      const opt = document.createElement("option");
+      opt.value = key;
+      opt.textContent = label;
+      manualPartCategory.appendChild(opt);
+    });
+  }
+
+  // Formulário Peça Manual - Submit (Salva no orçamento e opcionalmente no Banco de Dados)
+  manualPartForm.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const item = {
-      id: `manual-${Date.now()}`,
-      sku: manualPartSku.value.trim() || "S/SKU",
-      name: manualPartName.value.trim(),
-      price: parseFloat(manualPartPrice.value) || 0,
-      stock: 99, // manual item doesn't have stock limit
-      description: "Adicionada manualmente"
-    };
+
+    const name = manualPartName.value.trim();
+    const sku = (manualPartSku.value.trim() || `SKU-${Date.now().toString().slice(-6)}`).toUpperCase();
+    const price = parseFloat(manualPartPrice.value) || 0;
     const qty = parseInt(manualPartQty.value) || 1;
-    addPartToInvoice(item, qty, true);
+    const cat = manualPartCategory ? manualPartCategory.value : "all";
+    const shouldSaveDb = manualPartSaveDb ? manualPartSaveDb.checked : true;
+
+    const item = {
+      id: `part-${Date.now()}-${Math.random().toString(36).substr(2, 6)}`,
+      sku: sku,
+      name: name,
+      category: cat,
+      price: price,
+      stock: 10,
+      description: "Cadastrada via Ordem de Serviço",
+      specs: {}
+    };
+
+    if (shouldSaveDb) {
+      // Salva no Banco de Dados SQLite / IndexedDB
+      await PartsDB.savePart(item);
+
+      // Atualiza estado local da memória
+      const existingIdx = DIESEL_DATABASE.findIndex(p => p.sku === item.sku);
+      if (existingIdx !== -1) {
+        DIESEL_DATABASE[existingIdx] = item;
+      } else {
+        DIESEL_DATABASE.push(item);
+      }
+
+      saveCatalog();
+      renderCatalogGrid();
+      renderSettingsTable();
+      statTotalItems.textContent = DIESEL_DATABASE.length;
+
+      addPartToInvoice(item, qty, false);
+      showToast(`Peça "${item.name}" adicionada à nota e salva no Banco de Dados!`);
+    } else {
+      item.isManual = true;
+      addPartToInvoice(item, qty, true);
+      showToast("Peça manual adicionada à nota.");
+    }
+
     manualPartModalOverlay.classList.remove("active");
-    showToast("Peça manual adicionada!");
   });
 
   // Formulário Serviço - Submit
@@ -791,10 +842,10 @@ function recalculateInvoice() {
 // ==========================================================================
 function setupHistory() {
   // Limpar todo histórico com confirmação
-  btnClearHistory.addEventListener("click", () => {
+  btnClearHistory.addEventListener("click", async () => {
     if (confirm("ATENÇÃO: Deseja realmente excluir permanentemente TODAS as notas do histórico?")) {
       invoiceHistory = [];
-      localStorage.setItem("wd_invoice_history", JSON.stringify(invoiceHistory));
+      await PartsDB.clearInvoices();
       renderHistory();
       showToast("Histórico deletado com sucesso.", "warning");
     }
@@ -895,7 +946,7 @@ function deleteInvoiceFromHistory(id) {
   showToast("Nota de serviço excluída do histórico.", "warning");
 }
 
-function emitInvoice() {
+async function emitInvoice() {
   // Validar requisitos
   if (!currentInvoice.clientName.trim()) {
     showToast("Por favor, preencha o Nome do Cliente.", "warning");
@@ -942,9 +993,9 @@ function emitInvoice() {
     notes: currentInvoice.notes
   };
 
-  // Salvar no histórico
+  // Salvar no histórico e persistir no banco de dados
   invoiceHistory.push(invoiceData);
-  localStorage.setItem("wd_invoice_history", JSON.stringify(invoiceHistory));
+  await PartsDB.saveInvoice(invoiceData);
   
   // Atualizar UI de histórico
   renderHistory();
@@ -1125,11 +1176,11 @@ function setupSettings() {
   });
 
   // Submit do formulário (adicionar ou editar)
-  settingsPartForm.addEventListener("submit", (e) => {
+  settingsPartForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const partData = {
-      id: settingsEditingId || `custom-${Date.now()}`,
+      id: settingsEditingId || `part-${Date.now()}-${Math.random().toString(36).substr(2, 6)}`,
       name: settingsName.value.trim(),
       sku: settingsSku.value.trim().toUpperCase(),
       category: settingsCategorySelect.value,
@@ -1143,7 +1194,8 @@ function setupSettings() {
       // Atualizar peça existente
       const idx = DIESEL_DATABASE.findIndex(p => p.id === settingsEditingId);
       if (idx !== -1) DIESEL_DATABASE[idx] = partData;
-      showToast(`Peça "${partData.name}" atualizada com sucesso!`);
+      await PartsDB.savePart(partData);
+      showToast(`Peça "${partData.name}" atualizada no Banco de Dados!`);
     } else {
       // Verificar SKU duplicado
       if (DIESEL_DATABASE.find(p => p.sku === partData.sku)) {
@@ -1151,7 +1203,8 @@ function setupSettings() {
         return;
       }
       DIESEL_DATABASE.push(partData);
-      showToast(`Peça "${partData.name}" adicionada ao catálogo!`);
+      await PartsDB.savePart(partData);
+      showToast(`Peça "${partData.name}" salva no Banco de Dados!`);
     }
 
     saveCatalog();
@@ -1170,9 +1223,10 @@ function setupSettings() {
   });
 
   // Limpar todo o catálogo
-  btnClearCatalog.addEventListener("click", () => {
+  btnClearCatalog.addEventListener("click", async () => {
     if (confirm("ATENÇÃO: Deseja excluir TODAS as peças do catálogo? Esta ação não pode ser desfeita.")) {
       DIESEL_DATABASE.length = 0;
+      await PartsDB.clearParts();
       saveCatalog();
       renderCatalogGrid();
       renderSettingsTable();
@@ -1180,6 +1234,36 @@ function setupSettings() {
       showToast("Catálogo limpo com sucesso.", "warning");
     }
   });
+
+  // Gerenciamento de Backup e Banco de Dados
+  if (btnExportBackup) {
+    btnExportBackup.addEventListener("click", async () => {
+      await PartsDB.exportBackup();
+      showToast("Arquivo de backup baixado com sucesso!");
+    });
+  }
+
+  if (inputImportBackup) {
+    inputImportBackup.addEventListener("change", async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      try {
+        const text = await file.text();
+        const res = await PartsDB.importBackup(text);
+        const parts = await PartsDB.getParts();
+        DIESEL_DATABASE.length = 0;
+        parts.forEach(p => DIESEL_DATABASE.push(p));
+        saveCatalog();
+        renderCatalogGrid();
+        renderSettingsTable();
+        statTotalItems.textContent = DIESEL_DATABASE.length;
+        showToast(`Backup restaurado! ${res.partsCount} peças no catálogo.`);
+      } catch (err) {
+        showToast(`Erro ao importar backup: ${err.message}`, "danger");
+      }
+      inputImportBackup.value = "";
+    });
+  }
 
   renderSettingsTable();
 }
@@ -1254,15 +1338,16 @@ function renderSettingsTable() {
       settingsName.focus();
     });
 
-    tr.querySelector(".btn-settings-delete").addEventListener("click", () => {
+    tr.querySelector(".btn-settings-delete").addEventListener("click", async () => {
       if (confirm(`Excluir a peça "${part.name}" do catálogo?`)) {
         const idx = DIESEL_DATABASE.findIndex(p => p.id === part.id);
         if (idx !== -1) DIESEL_DATABASE.splice(idx, 1);
+        await PartsDB.deletePart(part.id);
         saveCatalog();
         renderCatalogGrid();
         renderSettingsTable();
         statTotalItems.textContent = DIESEL_DATABASE.length;
-        showToast(`Peça "${part.name}" removida do catálogo.`, "warning");
+        showToast(`Peça "${part.name}" removida do banco de dados.`, "warning");
       }
     });
 
@@ -1271,10 +1356,56 @@ function renderSettingsTable() {
 }
 
 // ==========================================================================
+// CONEXÃO COM O BANCO DE DADOS
+// ==========================================================================
+function setupDatabaseConnection() {
+  const dbStatusBadge = document.getElementById("db-status-badge");
+  const dbStatusDot = document.getElementById("db-status-dot");
+  const dbStatusText = document.getElementById("db-status-text");
+  const settingsDbEngine = document.getElementById("settings-db-engine");
+  const settingsDbDest = document.getElementById("settings-db-dest");
+
+  PartsDB.onStatusChange((status) => {
+    if (status.connected) {
+      if (dbStatusBadge) dbStatusBadge.classList.remove("local");
+      if (dbStatusText) dbStatusText.textContent = "BD: SQLite Ativo";
+      if (settingsDbEngine) {
+        settingsDbEngine.textContent = "SQLite (Node.js)";
+        settingsDbEngine.style.color = "var(--success)";
+      }
+      if (settingsDbDest) settingsDbDest.textContent = "data/wando_diesel.db";
+    } else {
+      if (dbStatusBadge) dbStatusBadge.classList.add("local");
+      if (dbStatusText) dbStatusText.textContent = "BD: Local / Offline";
+      if (settingsDbEngine) {
+        settingsDbEngine.textContent = status.engine || "IndexedDB (Navegador)";
+        settingsDbEngine.style.color = "var(--warning)";
+      }
+      if (settingsDbDest) settingsDbDest.textContent = "Armazenamento do Navegador";
+    }
+  });
+
+  PartsDB.init();
+}
+
+// ==========================================================================
 // INICIALIZAÇÃO DA APLICAÇÃO
 // ==========================================================================
-document.addEventListener("DOMContentLoaded", () => {
-  // Configurar Itens no Catálogo inicial no widget superior
+document.addEventListener("DOMContentLoaded", async () => {
+  // Configura indicador de banco de dados
+  setupDatabaseConnection();
+
+  // Carrega as peças gravadas no banco de dados (SQLite ou IndexedDB)
+  try {
+    const parts = await PartsDB.getParts();
+    DIESEL_DATABASE = parts;
+    const invs = await PartsDB.getInvoices();
+    if (invs && invs.length > 0) invoiceHistory = invs;
+  } catch (err) {
+    console.error("[App] Erro ao obter dados do banco:", err);
+  }
+
+  // Atualizar contadores iniciais
   statTotalItems.textContent = DIESEL_DATABASE.length;
 
   setupNavigation();

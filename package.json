@@ -1,16 +1,17 @@
 {
   "name": "wando-diesel",
   "version": "1.0.0",
-  "description": "Website e Sistema de Faturamento da Wando Diesel",
-  "main": "index.html",
+  "description": "Website e Sistema de Faturamento da Wando Diesel com Banco de Dados SQLite",
+  "main": "server.js",
   "scripts": {
-    "dev": "npx -y http-server -p 3000 -c-1",
-    "start": "npx -y http-server -p 3000 -c-1"
+    "dev": "node server.js",
+    "start": "node server.js"
   },
   "keywords": [
     "diesel",
     "parts",
-    "invoice"
+    "invoice",
+    "sqlite"
   ],
   "author": "Antigravity",
   "license": "ISC",

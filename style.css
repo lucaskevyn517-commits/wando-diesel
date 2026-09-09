@@ -1269,3 +1269,60 @@ body::before {
     position: static;
   }
 }
+
+/* ========== BANCO DE DADOS & BADGES ========== */
+.db-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  padding: 0.35rem 0.8rem;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #10b981;
+  transition: var(--transition-normal);
+  user-select: none;
+}
+
+.db-status-badge.local {
+  background: rgba(245, 158, 11, 0.08);
+  border-color: rgba(245, 158, 11, 0.25);
+  color: #f59e0b;
+}
+
+.db-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #10b981;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.8);
+  animation: pulse-dot 2s infinite ease-in-out;
+}
+
+.db-status-badge.local .db-dot {
+  background-color: #f59e0b;
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.8);
+}
+
+@keyframes pulse-dot {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.25);
+    opacity: 0.6;
+  }
+}
+
+.manual-save-box {
+  transition: var(--transition-fast);
+}
+
+.manual-save-box:hover {
+  border-color: rgba(0, 119, 255, 0.4);
+  background: rgba(0, 119, 255, 0.12);
+}
+

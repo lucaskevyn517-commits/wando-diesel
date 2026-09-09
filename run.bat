@@ -1,42 +1,51 @@
 @echo off
 chcp 65001 >nul
-echo ==========================================
-echo   Iniciando Servidor Local - WANDO DIESEL
-echo ==========================================
+echo =========================================================
+echo   Iniciando Servidor & Banco de Dados - WANDO DIESEL
+echo =========================================================
 
-:: Tenta rodar com Python
+:: 1. Tenta rodar com Node.js (Servidor Oficial com Banco de Dados SQLite)
+where node >nul 2>&1
+if %errorlevel% equ 0 (
+    echo [OK] Node.js detectado!
+    echo [OK] Iniciando Servidor com Banco de Dados SQLite na porta 3000...
+    timeout /t 1 /nobreak >nul
+    start http://localhost:3000
+    node server.js
+    goto end
+)
+
+:: 2. Tenta rodar com Python
 where python >nul 2>&1
 if %errorlevel% equ 0 (
-    echo [OK] Python detectado. Iniciando servidor na porta 8080...
+    echo [OK] Python detectado. Iniciando servidor estatico na porta 8080...
     start http://localhost:8080
     python -m http.server 8080
     goto end
 )
 
-:: Tenta rodar com Py (Windows Launcher)
+:: 3. Tenta rodar com Py (Windows Launcher)
 where py >nul 2>&1
 if %errorlevel% equ 0 (
-    echo [OK] Python (py) detectado. Iniciando servidor na porta 8080...
+    echo [OK] Python (py) detectado. Iniciando servidor estatico na porta 8080...
     start http://localhost:8080
     py -m http.server 8080
     goto end
 )
 
-:: Tenta rodar com Node npx http-server
+:: 4. Tenta rodar com Node npx http-server
 where npx >nul 2>&1
 if %errorlevel% equ 0 (
-    echo [OK] Node.js (npx) detectado. Iniciando servidor na porta 8080...
+    echo [OK] npx detectado. Iniciando servidor estatico na porta 8080...
     start http://localhost:8080
     npx http-server -p 8080
     goto end
 )
 
-echo [ERRO] Não foi possível encontrar Python ou Node.js no sistema.
+echo [ERRO] Nao foi possivel encontrar Node.js ou Python no sistema.
 echo.
-echo Para rodar o site localmente (devido às restrições do navegador sobre módulos ES6 em arquivos locais):
-echo 1. Instale o Python ou o Node.js.
-echo 2. Ou utilize a extensão "Live Server" se estiver usando o VS Code.
-echo 3. Ou inicie qualquer servidor HTTP apontando para esta pasta.
+echo Para rodar o sistema com banco de dados SQLite persistente:
+echo 1. Instale o Node.js (https://nodejs.org).
 echo.
 pause
 

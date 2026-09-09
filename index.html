@@ -108,6 +108,10 @@
       </div>
 
       <div class="status-badge-container">
+        <div class="db-status-badge" id="db-status-badge" title="Status do Banco de Dados">
+          <span class="db-dot" id="db-status-dot"></span>
+          <span id="db-status-text">Conectando...</span>
+        </div>
         <span class="badge badge-success" id="shop-status">Mecânica Online</span>
       </div>
     </header>
@@ -120,7 +124,7 @@
         <div class="stat-card">
           <div class="stat-info">
             <h3>Itens no Catálogo</h3>
-            <div class="stat-value" id="stat-total-items">10</div>
+            <div class="stat-value" id="stat-total-items">0</div>
           </div>
           <div class="stat-icon">
             <svg viewBox="0 0 24 24">
@@ -625,6 +629,42 @@
               <span id="settings-stat-zero" style="font-weight:700; color:var(--danger);">0</span>
             </div>
           </div>
+
+          <!-- Card de Gerenciamento do Banco de Dados & Backups -->
+          <div class="glass-panel" style="margin-top:1.5rem;">
+            <div class="glass-panel-header">
+              <h2>
+                <svg viewBox="0 0 24 24">
+                  <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                  <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                  <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                </svg>
+                Banco de Dados &amp; Backup
+              </h2>
+            </div>
+            
+            <div class="summary-row">
+              <span>Motor Ativo:</span>
+              <span id="settings-db-engine" style="font-weight:600; color:var(--success);">Carregando...</span>
+            </div>
+            <div class="summary-row" style="margin-top:0.5rem;">
+              <span>Destino:</span>
+              <span id="settings-db-dest" style="font-size:0.75rem; color:var(--text-muted); font-family:monospace;">data/wando_diesel.db</span>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:0.6rem; margin-top:1.25rem;">
+              <button class="btn btn-secondary btn-sm" id="btn-export-backup" style="justify-content:center;">
+                <svg viewBox="0 0 24 24" style="width:14px;height:14px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Exportar Backup (.json)
+              </button>
+
+              <label class="btn btn-secondary btn-sm" style="justify-content:center; cursor:pointer; margin-bottom:0;">
+                <svg viewBox="0 0 24 24" style="width:14px;height:14px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                Importar / Restaurar Backup
+                <input type="file" id="input-import-backup" accept=".json" style="display:none;">
+              </label>
+            </div>
+          </div>
         </div>
 
         <!-- Painel Direito: Tabela de Peças -->
@@ -756,18 +796,35 @@
               <input type="text" id="manual-part-sku" placeholder="Ex: COD-COR-12">
             </div>
             <div class="form-group">
-              <label for="manual-part-qty">Quantidade *</label>
+              <label for="manual-part-qty">Qtd. na Nota *</label>
               <input type="number" id="manual-part-qty" value="1" min="1" required>
             </div>
           </div>
-          <div class="form-group" style="margin-top:1rem;">
-            <label for="manual-part-price">Preço Unitário (R$) *</label>
-            <input type="number" id="manual-part-price" step="0.01" min="0" required placeholder="Ex: 150.00">
+          <div class="form-grid" style="margin-top:1rem;">
+            <div class="form-group">
+              <label for="manual-part-price">Preço Unitário (R$) *</label>
+              <input type="number" id="manual-part-price" step="0.01" min="0" required placeholder="Ex: 150.00">
+            </div>
+            <div class="form-group">
+              <label for="manual-part-category">Categoria</label>
+              <select id="manual-part-category"></select>
+            </div>
+          </div>
+
+          <!-- Opção de salvar no banco de dados -->
+          <div class="manual-save-box" style="margin-top:1.25rem; background:rgba(0,119,255,0.08); border:1px solid rgba(0,119,255,0.25); border-radius:8px; padding:0.85rem 1rem;">
+            <label style="display:flex; align-items:center; gap:0.65rem; cursor:pointer; font-weight:600; color:var(--text-main); margin-bottom:0;">
+              <input type="checkbox" id="manual-part-save-db" checked style="width:18px; height:18px; accent-color:var(--primary); cursor:pointer;">
+              <span>💾 Salvar no Banco de Dados / Catálogo</span>
+            </label>
+            <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.35rem; margin-left:1.75rem; line-height:1.4;">
+              A peça será salva permanentemente e estará disponível no catálogo para futuros orçamentos.
+            </p>
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" id="modal-manual-cancel">Cancelar</button>
-          <button type="submit" class="btn btn-primary">Adicionar Peça</button>
+          <button type="submit" class="btn btn-primary">Adicionar à Ordem</button>
         </div>
       </form>
     </div>
@@ -1000,7 +1057,7 @@
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-  <script type="module" src="app.js"></script>
+  <script type="module" src="app.js?v=4"></script>
 </body>
 
 </html>
